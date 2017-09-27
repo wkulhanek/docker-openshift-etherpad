@@ -1,20 +1,22 @@
-FROM       centos:7
+FROM centos:7
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
 
 RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install openssl npm node && \
     yum clean all && \
-    mkdir /var/lib/etherpad && \
-    curl -L https://github.com/ether/etherpad-lite/tarball/1.6.1 | tar -xz --strip-components=1
+    rm -rf /var/cache/yum && \
+    mkdir /var/lib/etherpad
 
 WORKDIR /var/lib/etherpad
+
 COPY docker-entrypoint.sh ./
 COPY fix-permissions.sh ./
 COPY settings.json ./
 
-# A few workarounds so we can run as non-root on openshift
-RUN mkdir .npm && \
+# A few workarounds to run as non-root on OpenShift
+RUN curl -L https://github.com/ether/etherpad-lite/tarball/1.6.1 | tar -xz --strip-components=1 && \
+    mkdir .npm && \
     ./fix-permissions.sh .npm && \
     ./fix-permissions.sh /var/lib/etherpad
 
