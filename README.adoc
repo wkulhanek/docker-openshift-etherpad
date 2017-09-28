@@ -11,4 +11,6 @@ oc new-app mysql-persistent --param MYSQL_USER=ether --param MYSQL_PASSWORD=ethe
 sleep 15
 
 oc new-app wkulhanek/etherpad:latest -e DB_USER=ether -e DB_PASS=ether -e DB_DBID=ether -e DB_PORT=3306 -e DB_HOST=mysql
+oc expose svc etherpad
+oc get route etherpad
 ----
