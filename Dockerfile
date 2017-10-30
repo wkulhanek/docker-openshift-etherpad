@@ -26,7 +26,6 @@ RUN curl -L -o /tmp/etherpad.tar  https://github.com/ether/etherpad-lite/tarball
     tar -xzf /tmp/etherpad.tar --strip-components=1 -C /opt/etherpad && \
     rm /tmp/etherpad.tar && \
     mkdir /opt/etherpad/.npm && \
-    /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     mkdir /.npm && \
     chmod 777 /.npm
 
@@ -39,6 +38,9 @@ RUN npm install ep_adminpads \
     ep_headings \
     ep_font_color \
     ep_markdown
+
+RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
+
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
