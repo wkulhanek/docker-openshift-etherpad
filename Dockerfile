@@ -18,21 +18,29 @@ RUN yum -y update && \
     rm -rf /var/cache/yum && \
     mkdir -p /opt/etherpad
 
-#WORKDIR /var/lib/etherpad
 
 COPY ./root /
-# COPY docker-entrypoint.sh ./
-# COPY fix-permissions.sh ./
-# COPY settings.json ./
 
 # A few workarounds to run as non-root on OpenShift
 RUN curl -L -o /tmp/etherpad.tar  https://github.com/ether/etherpad-lite/tarball/$ETHERPAD_VERSION && \
     tar -xzf /tmp/etherpad.tar --strip-components=1 -C /opt/etherpad && \
     rm /tmp/etherpad.tar && \
     mkdir /opt/etherpad/.npm && \
-    /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     mkdir /.npm && \
     chmod 777 /.npm
+
+WORKDIR /opt/etherpad
+
+# Install a few default plugins:
+RUN npm install ep_adminpads \
+    ep_font_family \
+    ep_font_size \
+    ep_headings \
+    ep_font_color \
+    ep_markdown
+
+RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
+
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
@@ -40,5 +48,4 @@ USER 1001
 
 # Listens on 9001 by default
 EXPOSE 9001
-WORKDIR /opt/etherpad
 ENTRYPOINT ["/opt/etherpad/docker-entrypoint.sh"]
