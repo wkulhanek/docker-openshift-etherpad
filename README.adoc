@@ -10,5 +10,5 @@ oc new-app mysql-persistent --param MYSQL_USER=ether --param MYSQL_PASSWORD=ethe
 
 sleep 15
 
-oc new-app -f etherpad-template.yaml -p ADMIN_PASSWORD=secret -p DB_USER=ether -p DB_PASS=ether -p DB_DBID=ether -p DB_PORT=3306 -p DB_HOST=mysql
+oc new-app -f etherpad-template.yaml -p DB_USER=ether -p DB_PASS=ether -p DB_DBID=ether -p DB_PORT=3306 -p DB_HOST=mysql -p ADMIN_PASSWORD=secret
 ----
