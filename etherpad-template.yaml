@@ -76,8 +76,8 @@ objects:
             value: ${DB_PORT}
           - name: DB_USER
             value: ${DB_USER}
-          image: wkulhanek/etherpad:1.6.1
-          imagePullPolicy: IfNotPresent
+          image: wkulhanek/etherpad:latest
+          imagePullPolicy: Always
           name: ${NAME}
           ports:
           - containerPort: 9001
