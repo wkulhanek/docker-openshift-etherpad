@@ -1,13 +1,13 @@
 FROM centos:7
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
-ENV ETHERPAD_VERSION="1.6.1"
+ENV ETHERPAD_VERSION="1.6.2"
 
 LABEL name="Etherpad Lite" \
       io.k8s.display-name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2017-09-28" \
+      build-date="2018-01-25" \
       version=$ETHERPAD_VERSION \
       release="1"
 
@@ -17,7 +17,6 @@ RUN yum -y update && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     mkdir -p /opt/etherpad
-
 
 COPY ./root /
 
@@ -35,12 +34,13 @@ WORKDIR /opt/etherpad
 RUN npm install ep_adminpads \
     ep_font_family \
     ep_font_size \
+    ep_headings2 \
     ep_headings \
     ep_font_color \
-    ep_markdown
+    ep_markdown \
+    ep_pad-lister
 
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
-
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
