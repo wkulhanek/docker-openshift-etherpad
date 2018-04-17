@@ -14,7 +14,6 @@ parameters:
 - name: ADMIN_PASSWORD
   description: Admin password for etherpad/admin
   required: true
-  value: changeme1
 - name: DB_DBID
   description: Database Name
   value: ether
@@ -34,6 +33,10 @@ parameters:
 - name: DB_PORT
   description: Database Port
   value: "3306"
+  required: true
+- name: ETHERPAD_IMAGE
+  description: Etherpad Image to be used
+  value: "quay.io/wkulhanek/etherpad:latest"
   required: true
 objects:
 
@@ -76,7 +79,7 @@ objects:
             value: ${DB_PORT}
           - name: DB_USER
             value: ${DB_USER}
-          image: wkulhanek/etherpad:latest
+          image: ${ETHERPAD_IMAGE}
           imagePullPolicy: Always
           name: ${NAME}
           ports:
