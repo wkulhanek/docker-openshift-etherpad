@@ -1,5 +1,6 @@
 #!/bin/bash
-docker build . -t wkulhanek/etherpad:latest
-docker tag wkulhanek/etherpad:latest wkulhanek/etherpad:1.6.3
+export VERSION=1.6.5
+docker build . -t wkulhanek/etherpad:${VERSION}
+docker tag wkulhanek/etherpad:${VERSION} wkulhanek/etherpad:latest
+docker push wkulhanek/etherpad:${VERSION}
 docker push wkulhanek/etherpad:latest
-docker push wkulhanek/etherpad:1.6.3
