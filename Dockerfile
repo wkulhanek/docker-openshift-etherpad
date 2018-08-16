@@ -7,7 +7,7 @@ LABEL name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2018-05-22" \
+      build-date="2018-08-16" \
       version=$ETHERPAD_VERSION \
       release="1"
 
@@ -38,7 +38,8 @@ RUN npm install ep_adminpads \
     ep_headings \
     ep_font_color \
     ep_markdown \
-    ep_pad-lister
+    ep_pad-lister \
+    ep_copy_paste_select_all
 
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
 
