@@ -39,7 +39,9 @@ RUN npm install ep_adminpads \
     ep_font_color \
     ep_markdown \
     ep_pad-lister \
-    ep_copy_paste_select_all
+    ep_copy_paste_select_all \
+    ep_copy_paste_images \
+    ep_aa_file_menu_toolbar
 
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
 
