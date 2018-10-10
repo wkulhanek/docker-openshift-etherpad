@@ -7,16 +7,19 @@ LABEL name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2018-09-22" \
+      build-date="2018-10-10" \
       version=$ETHERPAD_VERSION \
       release="1"
 
 RUN yum -y update && \
     yum -y install epel-release && \
-    yum -y install openssl npm node && \
+    yum -y install openssl && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     mkdir -p /opt/etherpad
+
+RUN curl --silent --location https://rpm.nodesource.com/setup_10.x|bash -
+RUN yum -y install nodejs
 
 COPY ./root /
 
