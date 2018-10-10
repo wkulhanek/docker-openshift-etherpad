@@ -18,7 +18,7 @@ RUN yum -y update && \
     rm -rf /var/cache/yum && \
     mkdir -p /opt/etherpad
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_10.x|bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x|bash -
 RUN yum -y install nodejs
 
 COPY ./root /
@@ -29,6 +29,7 @@ RUN curl -L -o /tmp/etherpad.tar  https://github.com/ether/etherpad-lite/tarball
     rm /tmp/etherpad.tar && \
     mkdir /opt/etherpad/.npm && \
     mkdir /.npm && \
+    mkdir /.config && \
     chmod 777 /.npm
 
 WORKDIR /opt/etherpad
@@ -41,12 +42,14 @@ RUN npm install ep_adminpads \
     ep_headings \
     ep_font_color \
     ep_markdown \
-    ep_pad-lister \
+    ep_small_list \
     ep_copy_paste_select_all \
     ep_copy_paste_images \
     ep_aa_file_menu_toolbar
 
-RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad
+RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
+    /opt/etherpad/bin/fix-permissions.sh /.npm && \
+    /opt/etherpad/bin/fix-permissions.sh /.config
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
