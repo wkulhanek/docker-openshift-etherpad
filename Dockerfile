@@ -7,7 +7,7 @@ LABEL name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2018-12-02" \
+      build-date="2018-12-05" \
       version=$ETHERPAD_VERSION \
       release="1"
 
