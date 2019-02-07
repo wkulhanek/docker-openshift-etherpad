@@ -1,13 +1,13 @@
 FROM centos:7
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
-ARG ETHERPAD_VERSION="1.7.0"
+ARG ETHERPAD_VERSION="1.7.5"
 
 LABEL name="Etherpad Lite" \
       io.k8s.display-name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2018-12-05" \
+      build-date="2019-02-07" \
       version=$ETHERPAD_VERSION \
       release="1"
 
