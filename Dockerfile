@@ -1,25 +1,25 @@
-FROM centos:7
+FROM registry.access.redhat.com/ubi7:7.6
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
 ARG ETHERPAD_VERSION="1.7.5"
 
 LABEL name="Etherpad Lite" \
-      io.k8s.display-name="Etherpad Lite" \
-      io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
-      io.openshift.expose-services="9001" \
-      io.openshift.tags="etherpad" \
-      build-date="2019-02-07" \
-      version=$ETHERPAD_VERSION \
-      release="1"
+              io.k8s.display-name="Etherpad Lite" \
+              io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
+              io.openshift.expose-services="9001" \
+              io.openshift.tags="etherpad" \
+              build-date="2019-05-31" \
+              version=$ETHERPAD_VERSION \
+              release="1"
 
 RUN yum -y update && \
-    yum -y install epel-release && \
-    yum -y install openssl && \
-    yum clean all && \
-    rm -rf /var/cache/yum && \
-    mkdir -p /opt/etherpad
+          yum -y install openssl && \
+          yum clean all && \
+          rm -rf /var/cache/yum && \
+          mkdir -p /opt/etherpad
 
-RUN curl --silent --location https://rpm.nodesource.com/setup_8.x|bash -
-RUN yum -y install nodejs
+# Install NodeJS 8
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x|bash - && \
+          yum -y install nodejs
 
 COPY ./root /
 
@@ -48,8 +48,8 @@ RUN npm install ep_adminpads \
     ep_aa_file_menu_toolbar
 
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
-    /opt/etherpad/bin/fix-permissions.sh /.npm && \
-    /opt/etherpad/bin/fix-permissions.sh /.config
+          /opt/etherpad/bin/fix-permissions.sh /.npm && \
+          /opt/etherpad/bin/fix-permissions.sh /.config
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
