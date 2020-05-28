@@ -40,8 +40,8 @@ RUN npm install ep_adminpads2 \
                             ep_headings2 \
                             ep_font_color \
                             ep_aa_file_menu_toolbar \
-                            ep_copy_paste_select_all \
-                            
+                            ep_copy_paste_select_all
+
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     /opt/etherpad/bin/fix-permissions.sh /.npm && \
     /opt/etherpad/bin/fix-permissions.sh /.config
