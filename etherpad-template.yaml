@@ -221,9 +221,9 @@ objects:
          "dbSettings" : {
                           "host"    : "DB_HOST",
                           "port"    : "DB_PORT",
-                          "database": "DB_DATABASE"
+                          "database": "DB_DATABASE",
                           "user"    : "DB_USER",
-                          "password": "DB_PASS",
+                          "password": "DB_PASS"
                         },
 
         //the default text of a pad
