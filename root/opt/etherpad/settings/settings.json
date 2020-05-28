@@ -5,7 +5,7 @@
 */
 {
   // Name your instance!
-  "title": "Etherpad",
+  "title": "OpenTLC Shared Etherpad",
 
   // favicon default name
   // alternatively, set up a fully specified Url to your own favicon
@@ -50,17 +50,17 @@
                   },
   */
 
-   "dbType" : "mysql",
-   "dbSettings" : {
-                    "user"    : "DB_USER",
-                    "host"    : "DB_HOST",
-                    "port"    : "DB_PORT",
-                    "password": "DB_PASS",
-                    "database": "DB_DBID"
-                  },
+  "dbType" : "DB_TYPE",
+  "dbSettings" : {
+    "user"    : "DB_USER",
+     "host"    : "DB_HOST",
+     "port"    : DB_PORT,
+     "password": "DB_PASS",
+     "database": "DB_DATABASE"
+   },
 
   //the default text of a pad
-  "defaultPadText" : "Welcome to the OpenTLC Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n",
+  "defaultPadText" : "Welcome to the Red Hat OpenTLC Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n",
 
   /* Default Pad behavior, users can override by changing */
   "padOptions": {

@@ -14,13 +14,21 @@ parameters:
 - name: ADMIN_PASSWORD
   description: Admin password for etherpad/admin
   required: true
-- name: DB_DBID
-  description: Database Name
-  value: ether
+- name: DB_TYPE
+  description: Database Type (postgres, mysql)
+  value: postgres
   required: true
 - name: DB_HOST
   description: Database host
-  value: mysql
+  value: postgresql
+  required: true
+- name: DB_PORT
+  description: Database Port
+  value: "5432"
+  required: true
+- name: DB_DATABASE
+  description: Database Name
+  value: ether
   required: true
 - name: DB_USER
   description: Database User ID
@@ -29,10 +37,6 @@ parameters:
 - name: DB_PASS
   description: Database Password
   value: ether
-  required: true
-- name: DB_PORT
-  description: Database Port
-  value: "3306"
   required: true
 - name: ETHERPAD_IMAGE
   description: Etherpad Image to be used
@@ -69,16 +73,18 @@ objects:
       spec:
         containers:
         - env:
-          - name: DB_DBID
-            value: ${DB_DBID}
+          - name: DB_TYPE
+            value: ${DB_TYPE}
           - name: DB_HOST
             value: ${DB_HOST}
-          - name: DB_PASS
-            value: ${DB_PASS}
           - name: DB_PORT
             value: ${DB_PORT}
+          - name: DB_DATABASE
+            value: ${DB_DATABASE}
           - name: DB_USER
             value: ${DB_USER}
+          - name: DB_PASS
+            value: ${DB_PASS}
           - name: NODE_ENV
             value: production
           image: ${ETHERPAD_IMAGE}
@@ -211,17 +217,17 @@ objects:
                         },
         */
 
-         "dbType" : "mysql",
+         "dbType" : "DB_TYPE",
          "dbSettings" : {
-                          "user"    : "DB_USER",
                           "host"    : "DB_HOST",
                           "port"    : "DB_PORT",
+                          "database": "DB_DATABASE"
+                          "user"    : "DB_USER",
                           "password": "DB_PASS",
-                          "database": "DB_DBID"
                         },
 
         //the default text of a pad
-        "defaultPadText" : "Welcome to Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nGet involved with Etherpad at http:\/\/etherpad.org\n",
+        "defaultPadText" : "Welcome to the OpenTLC Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n",
 
         /* Default Pad behavior, users can override by changing */
         "padOptions": {
