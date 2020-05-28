@@ -605,7 +605,7 @@ objects:
             "password": "${ADMIN_PASSWORD}",
             "is_admin": true
           }
-        }
+        },
 
         /*
         * Restrict socket.io transport methods
