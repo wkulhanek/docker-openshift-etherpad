@@ -153,6 +153,9 @@ objects:
       app: ${NAME}
     name: ${NAME}
   spec:
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
     to:
       name: ${NAME}
 
