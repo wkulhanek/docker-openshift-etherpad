@@ -35,16 +35,18 @@ WORKDIR /opt/etherpad
 
 # Install a few default plugins:
 RUN npm install ep_adminpads2 \
-                            ep_font_family \
-                            ep_font_size \
-                            ep_headings2 \
-                            ep_font_color \
-                            ep_aa_file_menu_toolbar \
-                            ep_copy_paste_select_all
+                ep_font_family \
+                ep_font_size \
+                ep_headings2 \
+                ep_font_color \
+                ep_aa_file_menu_toolbar \
+                ep_copy_paste_select_all
 
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     /opt/etherpad/bin/fix-permissions.sh /.npm && \
-    /opt/etherpad/bin/fix-permissions.sh /.config
+    /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.npm && \   
+    /opt/etherpad/bin/fix-permissions.sh /.config && \
+    /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.config
 
 # Run as a random user. This happens on openshift by default so we
 # might as well always run as a random user
