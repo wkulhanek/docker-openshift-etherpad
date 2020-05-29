@@ -42,6 +42,10 @@ RUN npm install ep_adminpads2 \
                 ep_aa_file_menu_toolbar \
                 ep_copy_paste_select_all
 
+# Copy Red Hat Background into the Image
+COPY ./fond_redhat.jpg /opt/etherpad/src/static/skins/colibris/images/fond.jpg
+
+# Fix permissions to run on OpenShift
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     /opt/etherpad/bin/fix-permissions.sh /.npm && \
     /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.npm && \   
