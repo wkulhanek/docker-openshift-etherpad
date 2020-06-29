@@ -40,7 +40,7 @@ parameters:
   required: true
 - name: ETHERPAD_IMAGE
   description: Etherpad Image to be used
-  value: "quay.io/wkulhanek/etherpad:latest"
+  value: "quay.io/gpte-devops-automation/etherpad:latest"
   required: true
 objects:
 
