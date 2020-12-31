@@ -2,14 +2,14 @@
 FROM registry.access.redhat.com/ubi8/nodejs-12:latest
 
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
-ARG ETHERPAD_VERSION="1.8.6"
+ARG ETHERPAD_VERSION="1.8.7"
 
 LABEL name="Etherpad Lite" \
       io.k8s.display-name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2020-09-19" \
+      build-date="2020-12-31" \
       version=$ETHERPAD_VERSION \
       release="1"
 
