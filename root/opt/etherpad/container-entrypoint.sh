@@ -25,4 +25,4 @@ sed -i "s/DB_USER/${DB_USER}/" settings.json
 sed -i "s/DB_PASS/${DB_PASS}/" settings.json
 
 # Execute the etherpad provided startup script
-./bin/run.sh $@
+./src/bin/run.sh $@
