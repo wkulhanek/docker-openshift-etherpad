@@ -1,5 +1,5 @@
-# Use Red Hat Universal Base Image 8 - NodeJS 12 version
-FROM registry.access.redhat.com/ubi8/nodejs-12:latest
+# Use Red Hat Universal Base Image 8 - NodeJS 14 version
+FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
 MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
 ARG ETHERPAD_VERSION="1.8.8"
@@ -20,17 +20,16 @@ RUN yum -y update && \
     rm -rf /var/cache/yum && \
     mkdir -p /opt/etherpad
 
-COPY ./root /
-
 # A few workarounds to run as non-root on OpenShift
-RUN curl -L -o /tmp/etherpad.tar  https://github.com/ether/etherpad-lite/tarball/$ETHERPAD_VERSION && \
-    tar -xzf /tmp/etherpad.tar --strip-components=1 -C /opt/etherpad && \
-    rm /tmp/etherpad.tar && \
+RUN curl -L -o /tmp/etherpad.tar.gz https://github.com/ether/etherpad-lite/archive/$ETHERPAD_VERSION.tar.gz && \
+    tar -xzf /tmp/etherpad.tar.gz --strip-components=1 -C /opt/etherpad && \
+    rm /tmp/etherpad.tar.gz && \
     mkdir /opt/etherpad/.npm && \
     mkdir /.npm && \
     mkdir /.config && \
     chmod 777 /.npm
 
+COPY ./root /
 WORKDIR /opt/etherpad
 
 # Install a few default plugins:
