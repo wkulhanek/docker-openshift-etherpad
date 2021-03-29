@@ -1,5 +1,5 @@
 #!/bin/bash
-export VERSION=1.8.8
+export VERSION=1.8.13
 docker build . -t quay.io/gpte-devops-automation/etherpad:${VERSION}
 docker tag quay.io/gpte-devops-automation/etherpad:${VERSION} quay.io/gpte-devops-automation/etherpad:latest
 docker tag quay.io/gpte-devops-automation/etherpad:${VERSION} quay.io/wkulhanek/etherpad:${VERSION}
