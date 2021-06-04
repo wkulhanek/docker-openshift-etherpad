@@ -1,7 +1,6 @@
 # Use Red Hat Universal Base Image 8 - NodeJS 14 version
 FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
-MAINTAINER Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>
 ARG ETHERPAD_VERSION="1.8.13"
 
 LABEL name="Etherpad Lite" \
@@ -9,16 +8,22 @@ LABEL name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2021-03-29" \
+      build-date="2021-06-04" \
       version=$ETHERPAD_VERSION \
+      maintainer="Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>" \
       release="1"
 
 USER root
-RUN yum -y update && \
-    yum -y install openssl && \
-    yum clean all && \
-    rm -rf /var/cache/yum && \
-    mkdir -p /opt/etherpad
+# RUN yum -y update && \
+#     yum -y install openssl && \
+#     yum clean all && \
+#     rm -rf /var/cache/yum && \
+#     mkdir -p /opt/etherpad
+RUN yum -y update --nobest
+RUN yum -y install openssl
+RUN yum clean all
+RUN rm -rf /var/cache/yum
+RUN mkdir -p /opt/etherpad
 
 # A few workarounds to run as non-root on OpenShift
 RUN curl -L -o /tmp/etherpad.tar.gz https://github.com/ether/etherpad-lite/archive/$ETHERPAD_VERSION.tar.gz && \
@@ -29,7 +34,9 @@ RUN curl -L -o /tmp/etherpad.tar.gz https://github.com/ether/etherpad-lite/archi
     mkdir /.config && \
     chmod 777 /.npm
 
-COPY ./root /
+RUN mkdir -p /opt/etherpad/bin
+COPY ./root/opt/etherpad/bin/fix-permissions.sh /opt/etherpad/bin
+COPY ./root/opt/etherpad/container-entrypoint.sh /opt/etherpad/
 WORKDIR /opt/etherpad
 
 # Install a few default plugins:
