@@ -1,14 +1,14 @@
 # Use Red Hat Universal Base Image 8 - NodeJS 14 version
 FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
-ARG ETHERPAD_VERSION="1.8.13"
+ARG ETHERPAD_VERSION="1.8.14"
 
 LABEL name="Etherpad Lite" \
       io.k8s.display-name="Etherpad Lite" \
       io.k8s.description="Provide an Etherpad on top of Red Hat OpenShift." \
       io.openshift.expose-services="9001" \
       io.openshift.tags="etherpad" \
-      build-date="2021-06-04" \
+      build-date="2021-07-08" \
       version=$ETHERPAD_VERSION \
       maintainer="Wolfgang Kulhanek <WolfgangKulhanek@gmail.com>" \
       release="1"
