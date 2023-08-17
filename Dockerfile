@@ -1,5 +1,5 @@
-# Use Red Hat Universal Base Image 9 - NodeJS 18 version
-FROM registry.access.redhat.com/ubi9/nodejs-18:latest
+# Use Red Hat Universal Base Image 8 - NodeJS 14 version
+FROM registry.access.redhat.com/ubi8/nodejs-14:latest
 
 ARG ETHERPAD_VERSION="1.9.1"
 
@@ -26,6 +26,8 @@ RUN curl -L -o /tmp/etherpad.tar.gz https://github.com/ether/etherpad-lite/archi
     rm /tmp/etherpad.tar.gz && \
     mkdir /opt/etherpad/.npm && \
     mkdir /.npm && \
+    mkdir -p /opt/app-root/src/.npm && \
+    mkdir -p /opt/app-root/src/.config && \
     mkdir /.config && \
     chmod 777 /.npm
 
@@ -35,13 +37,12 @@ COPY ./root/opt/etherpad/container-entrypoint.sh /opt/etherpad/
 WORKDIR /opt/etherpad
 
 # Install a few default plugins:
-RUN npm install ep_adminpads2 \
-                ep_font_family \
-                ep_font_size \
-                ep_headings2 \
-                ep_font_color \
-                ep_aa_file_menu_toolbar \
-                ep_copy_paste_select_all
+#RUN npm install ep_adminpads2 \
+#                ep_font_family \
+#                ep_font_size \
+#                ep_font_color
+#                ep_aa_file_menu_toolbar \
+#                ep_copy_paste_select_all
 
 # Copy Red Hat Background into the Image
 COPY ./fond_redhat.jpg /opt/etherpad/src/static/skins/colibris/images/fond.jpg
@@ -49,7 +50,7 @@ COPY ./fond_redhat.jpg /opt/etherpad/src/static/skins/colibris/images/fond.jpg
 # Fix permissions to run on OpenShift
 RUN /opt/etherpad/bin/fix-permissions.sh /opt/etherpad && \
     /opt/etherpad/bin/fix-permissions.sh /.npm && \
-    /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.npm && \   
+    /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.npm && \
     /opt/etherpad/bin/fix-permissions.sh /.config && \
     /opt/etherpad/bin/fix-permissions.sh /opt/app-root/src/.config
 
