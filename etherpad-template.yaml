@@ -140,7 +140,7 @@ objects:
       targetPort: 9001
     selector:
       app: ${NAME}
-      deploymentconfig: ${NAME}
+      deployment: ${NAME}
 
 - apiVersion: v1
   kind: Route
